@@ -24,7 +24,6 @@ function processKey(key, value) {
 
 async function filterTable(event) {
     event.preventDefault();
-    console.log('here');
     const e = document.getElementById("bookCategories");
     let filter = e.options[e.selectedIndex].text;
     await generateTable(params={ filter: filter === 'Category' ? undefined : filter});
@@ -32,16 +31,29 @@ async function filterTable(event) {
     return false;
 }
 
-async function generateTable(params={}) {
-    let json_data = await loadData();
-    const { search, filter } = params;
+function removeRows(tableID) {
+    var table = document.getElementById(tableID);
+    for(var i = table.rows.length - 1; i >= 0; i--)
+    {
+        table.deleteRow(i);
+    }
+}
 
+async function generateTable(params={}) {
+    const { search, filter } = params;
+    let json_data = await loadData();
+    const tableID = 'resultBody';
     let schema = ['checkbox', 'img', 'title','rating',  'authors', 'year', 'price',  'publisher', 'category' ]
 
-    var table = document.getElementById('resultBody');
-    console.log(filter);
+    if(filter && filter != 'None') {
+        removeRows(tableID);
+    }
+
+    var table = document.getElementById(tableID);
+
     for (let i = 0; i < json_data.length; i++) {
         if(filter && json_data[i]['category'] != filter) {
+            console.log(filter === 'None');
             continue;
         }
         var tr = document.createElement('tr');
@@ -57,7 +69,6 @@ async function generateTable(params={}) {
 
 async function generateFilters(){ 
     let json_data = await loadData("/getCategories")
-    console.log(json_data);
     var dropdown = document.getElementById('bookCategories')
     json_data.forEach((category) => {
         var option = document.createElement('option');
@@ -70,7 +81,7 @@ async function generateFilters(){
 
 window.addEventListener('load', async function() {
 
-    document.getElementById('filterButton').addEventListener('click', (event) => filterTable, false);
+    document.getElementById('filterButton').addEventListener('click', filterTable);
     generateFilters();
     generateTable();
 
