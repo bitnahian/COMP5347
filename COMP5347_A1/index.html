@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+   <meta charset="utf-8">
+   <title>COMP5347 Assignment One</title>
+   <link rel="stylesheet" href="index.css" />
+   <script type="text/javascript" src="index.js"></script>
+</head>
+<body>
+<form method="get" action="">
+<div id="searchBox">
+   <div className="leftSection">
+      <input className="inputBox" />
+      <button id="searchButton">
+         Search
+      </button>
+      <select default="default" id="bookCategories">
+         <option selected="true" value="default" disabled>Category</option>
+
+      </select>
+      <button id="filterButton">
+         Filter
+      </button>
+   </div>
+
+   <div className="rightSection">
+      <button>Add to cart</button>
+      <button>Reset to cart</button>
+   </div>
+
+</div>
+<div id="listBox">
+   <table >
+      <thead >
+         <tr>
+            <th></th>
+            <th></th>
+            <th>Title</th>
+            <th>Rating</th>
+            <th>Authors</th>
+            <th>Year</th>
+            <th>Price</th>
+            <th>Publisher</th>
+            <th>Category</th>
+         </tr>
+      </thead>
+      <tbody id="resultBody">
+      </tbody>
+   </table>
+</div>   
+</form>
+</body>
+</html>
