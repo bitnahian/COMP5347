@@ -1,0 +1,104 @@
+/* general text formatting */
+
+h1, h2, h3, nav, footer {
+    font-family: Georgia, Cambria, "Times New Roman", serif;
+}
+
+body {
+    background-color: #2d132c;
+    font-family: "Lucida Sans", Verdana, Arial, sans-serif;
+    font-size: 80%;
+ }
+
+ div#themeBox {
+    display: flex;
+    margin: 0.25em auto;
+    padding: 1em;
+    width: 80%;
+ }
+ 
+ div#searchBox, div#listBox {
+    margin: 0.25em auto;
+    padding: 1em;
+    width: 80%;
+ }
+
+ div#searchBox {
+    display: flex;
+    justify-content: space-between;
+    background-color: #801336;
+    margin-top: 1em;
+ 
+ }
+ 
+ div#listBox { 
+    margin-top: 1em; 
+    background-color: #801336;
+    }
+ 
+ table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-top: 15pt solid #801336;   
+    
+ }
+
+ table tbody td{
+    line-height: 1.5em;
+    vertical-align: middle;
+    padding: 0.5em 0.75em;
+ }
+ 
+ table thead th {
+    text-align: left;
+    padding: 0.25em 0.75em; 
+    background-color: #2d132c;
+    color: white;
+ }
+
+ table tbody td:first-child  {
+    text-align: center;
+    padding: 0.5em 0em;   
+ }
+
+ caption {
+    background-color: #801336;
+       padding: 0.5em 0.5em; 
+       font-weight: bold;
+       font-size: 1.2em;
+ }
+
+ tr.highlighted {
+    background-color: rgb(179, 51, 28);
+ }
+ 
+ .cart {
+    display:inline-block;
+    vertical-align:middle;
+ }
+ 
+ .star {
+    display: flex;
+ }
+ 
+ .ratingHeader {
+    text-align: center;
+ }
+
+ button#lightThemeButton {
+    border: 0px;
+    background-color: #95BEF0;
+    height:15px;
+    width:15px;
+    cursor:pointer;
+ }
+ 
+ button#darkThemeButton {
+    border: 0px;
+    background-color: #801336;
+    height:15px;
+    width:15px;
+    cursor:pointer;
+ }
+ 

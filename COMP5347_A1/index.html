@@ -2,15 +2,22 @@
 <html>
 <head lang="en">
    <meta charset="utf-8">
-   <title>COMP5347 Assignment One</title>
+   <title>A2ZBooks</title>
    <link rel="stylesheet" href="style/index.css" />
    <script type="text/javascript" src="scripts/index.js"></script>
 </head>
 <body>
+
 <form method="get" action="">
+<div id="themeBox">
+   <span>
+      <button id="lightThemeButton"></button> 
+      <button id="darkThemeButton"></button>
+   </span>
+</div>
 <div id="searchBox">
-   <div className="leftSection">
-      <input id="searchInput" className="inputBox" />
+   <div class="leftSection">
+      <input id="searchInput" class="inputBox" />
       <button id="searchButton">
          Search
       </button>
@@ -23,7 +30,7 @@
       </button>
    </div>
 
-   <div className="rightSection">
+   <div class="rightSection">
       <button id="addToCartButton">Add to cart</button>
       <button id="resetCartButton">Reset the cart</button>
       <span id="cartSpan"><img class="cart" width='20px' height='20px' src="images/shopping_cart.png"/></span>

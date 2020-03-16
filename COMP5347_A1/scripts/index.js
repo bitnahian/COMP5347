@@ -17,6 +17,8 @@ async function loadData(parameter="/") {
     return data;
 }
 
+/** searchAndFilter.js **/
+
 function processKey(key, value, title) {
     if (key == 'checkbox') {
         return `<input id=${hashCode(title)} type='checkbox'></input>`
@@ -39,9 +41,6 @@ function processKey(key, value, title) {
         return value;
     }
 }
-
-/** searchAndFilter.js **/
-
 
 async function filterTable(event) {
     event.preventDefault();
@@ -234,6 +233,27 @@ async function resetCart(event) {
     return false;
 }
 
+/** theme.js **/
+
+async function toDark(event) {
+    event.preventDefault();
+    console.log('hello');
+    const e = document.querySelector("link[href='style/index.css']");
+    if(e) {
+        e.href = "style/index-dark.css";
+    }
+    return false;
+}
+
+async function toLight(event) {
+    event.preventDefault();
+    const e = document.querySelector("link[href='style/index-dark.css']");
+    if(e) {
+        e.href = "style/index.css";
+    }
+    return false;
+}
+
 /** index.js **/
 
 window.addEventListener('load', async function() {
@@ -242,6 +262,9 @@ window.addEventListener('load', async function() {
     document.getElementById('searchButton').addEventListener('click', searchTable);
     document.getElementById('addToCartButton').addEventListener('click', addToCart);
     document.getElementById('resetCartButton').addEventListener('click', resetCart);
+    document.getElementById('lightThemeButton').addEventListener('click', toLight);
+    document.getElementById('darkThemeButton').addEventListener('click', toDark);
+
     generateFilters();
     generateTable();
 })

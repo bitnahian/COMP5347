@@ -8,6 +8,13 @@ body {
    font-size: 80%;
 }
 
+div#themeBox {
+   display: flex;
+   margin: 0.25em auto;
+   padding: 1em;
+   width: 80%;
+}
+
 div#searchBox, div#listBox {
    margin: 0.25em auto;
    background-color: #EBF4FB;
@@ -15,11 +22,11 @@ div#searchBox, div#listBox {
    border: 1pt solid #95BEF0;
    width: 80%;
 }
-div#searchBox { margin-top: 1em; }
 
 div#searchBox {
    display: flex;
    justify-content: space-between;
+   margin-top: 1em;
 
 }
 
@@ -78,4 +85,20 @@ tr.highlighted {
 
 .ratingHeader {
    text-align: center;
+}
+
+button#lightThemeButton {
+   border: 0px;
+   background-color: #95BEF0;
+   height:15px;
+   width:15px;
+   cursor:pointer;
+}
+
+button#darkThemeButton {
+   border: 0px;
+   background-color: #801336;
+   height:15px;
+   width:15px;
+   cursor:pointer;
 }
