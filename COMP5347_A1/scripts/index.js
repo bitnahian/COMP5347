@@ -2,6 +2,7 @@ const dataPath = "http://localhost:3000";
 const getCategoriesPath = "/getCategories";
 let cachedCategory = 'None';
 let cachedPattern = '';
+let checkboxHash = undefined;
 
 /** api.js **/
 
@@ -16,9 +17,9 @@ async function loadData(parameter="/") {
     return data;
 }
 
-function processKey(key, value) {
+function processKey(key, value, title) {
     if (key == 'checkbox') {
-        return "<input type='checkbox'></input>"
+        return `<input id=${hashCode(title)} name='${title}' type='checkbox'></input>`
     } else if (key == 'img') {
         return `<img width='150px' height='150px' src=${value} />`
     } else {
@@ -103,11 +104,21 @@ async function generateTable(params={filter:'None', pattern:''}) {
 
         for (let j = 0; j < schema.length; j++) {
             var td = document.createElement('td');
-            td.innerHTML = processKey(schema[j], json_data[i][schema[j]]);
+            td.innerHTML = processKey(schema[j], json_data[i][schema[j]], json_data[i]['title']);
             tr.appendChild(td)
         }
         table.appendChild(tr);
     }
+
+    // Remember which item was selected previously
+    let c = document.getElementById(checkboxHash);
+    if(c) {
+        c.checked = true;
+    }
+
+    createCheckBoxEventListeners();
+    
+
 }
 
 async function generateFilters(){ 
@@ -124,21 +135,44 @@ async function generateFilters(){
 
 /** checkbox-utils.js **/
 
-async function createCheckBoxEventListeners() {
-    let checkbox = document.querySelectorAll("input[name=checkbox]");
-    console.log(checkbox);
+function hashCode(str) {
+    return str.split('').reduce((prevHash, currVal) =>
+      (((prevHash << 5) - prevHash) + currVal.charCodeAt(0))|0, 0);
+  }
+
+function createCheckBoxEventListeners() {
+    let checkbox = document.querySelectorAll("input[type=checkbox]");
     checkbox.forEach((box) => {
         box.addEventListener( 'change', function() {
             if(this.checked) {
                 // Checkbox is checked..
-                console.log('ok');
+                checkboxHash = this.id;
+                let checked = this;
+                checkbox.forEach((b) => {
+                    if(b != checked) {
+                        b.checked = false;
+                    }
+                });
             } 
         });
     })
 
 }
 
+/** cart.js **/
 
+async function addToCart() {
+    let c = document.getElementById(checkboxHash);
+    if(!c) {
+        alert("No item was checked.");
+        return false;
+    }
+    let name = c.name;
+    let number = prompt(`How many ${name}(s) do you want to add?`);
+    alert(`Added ${number} ${name}(s) to cart.`)
+
+  return false;
+}
 
 /** index.js **/
 
@@ -146,10 +180,9 @@ window.addEventListener('load', async function() {
 
     document.getElementById('filterButton').addEventListener('click', filterTable);
     document.getElementById('searchButton').addEventListener('click', searchTable);
+    document.getElementById('addToCartButton').addEventListener('click', addToCart);
     generateFilters();
     generateTable();
-    createCheckBoxEventListeners();
-
 })
 
 
