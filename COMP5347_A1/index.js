@@ -26,7 +26,9 @@ async function filterTable(event) {
     event.preventDefault();
     const e = document.getElementById("bookCategories");
     let filter = e.options[e.selectedIndex].text;
-    await generateTable(params={ filter: filter === 'Category' ? undefined : filter});
+    if(filter != 'Category') {
+        await generateTable(params={ filter });
+    }
 
     return false;
 }
@@ -45,14 +47,14 @@ async function generateTable(params={}) {
     const tableID = 'resultBody';
     let schema = ['checkbox', 'img', 'title','rating',  'authors', 'year', 'price',  'publisher', 'category' ]
 
-    if(filter && filter != 'None') {
+    if(filter) {
         removeRows(tableID);
     }
 
     var table = document.getElementById(tableID);
 
     for (let i = 0; i < json_data.length; i++) {
-        if(filter && json_data[i]['category'] != filter) {
+        if(filter && filter != 'None' && json_data[i]['category'] != filter) {
             console.log(filter === 'None');
             continue;
         }
