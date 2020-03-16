@@ -174,7 +174,16 @@ function createCheckBoxEventListeners() {
 
 /** cart.js **/
 
+function isPositiveInteger(n) {
+    // https://stackoverflow.com/questions/10834796/validate-that-a-string-is-a-positive-integer
+    return 0 === n % (!isNaN(parseFloat(n)) && 0 <= ~~n);
+}
+
 function addNumber(n) {
+    if(!isPositiveInteger(n)) {
+        alert("Invalid input!");
+        throw Error("Invalid input.");
+    }
     let elm = document.getElementById("numItems");
     let c = elm.innerHTML;
     let oldNum = c.substring(1, c.length-1);
@@ -198,9 +207,13 @@ async function addToCart(event) {
     else {
         let number = prompt(`How many item(s) do you want to add?`);
         if(number){
+            try {
+                addNumber(number);
+            } catch {
+                return false;
+            }
             alert(`Added ${number} item(s) to cart.`)
             clearChecks();
-            addNumber(number);
         }
         else {
             alert('No item(s) were added to cart.')
