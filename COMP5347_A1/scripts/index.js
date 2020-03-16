@@ -19,10 +19,23 @@ async function loadData(parameter="/") {
 
 function processKey(key, value, title) {
     if (key == 'checkbox') {
-        return `<input id=${hashCode(title)} name='${title}' type='checkbox'></input>`
+        return `<input id=${hashCode(title)} type='checkbox'></input>`
     } else if (key == 'img') {
         return `<img width='150px' height='150px' src=${value} />`
-    } else {
+    } else if (key == 'rating') {
+        html = '<div class="star">';
+        value = parseInt(value);
+        for(var i = 0; i < value; ++i) {
+            html += `<span><img src="images/star-16.ico"/></span>`
+        }
+        var j = value;
+        for(j; j < 5; j++) {
+            html += `<span><img src="images/outline-star-16.ico"/></span>`
+        }
+        html += '</div>';
+        return html;
+    } 
+    else {
         return value;
     }
 }
@@ -161,17 +174,51 @@ function createCheckBoxEventListeners() {
 
 /** cart.js **/
 
-async function addToCart() {
+function addNumber(n) {
+    let elm = document.getElementById("numItems");
+    let c = elm.innerHTML;
+    let oldNum = c.substring(1, c.length-1);
+    let num = parseInt(oldNum) + parseInt(n);
+    elm.innerHTML = `(${num})`;
+}
+
+function clearChecks() {
+    let c = document.getElementById(checkboxHash);
+    c.checked = false;
+    checkboxHash = undefined;
+}
+
+async function addToCart(event) {
+    event.preventDefault();
     let c = document.getElementById(checkboxHash);
     if(!c) {
         alert("No item was checked.");
         return false;
     }
-    let name = c.name;
-    let number = prompt(`How many ${name}(s) do you want to add?`);
-    alert(`Added ${number} ${name}(s) to cart.`)
+    else {
+        let number = prompt(`How many item(s) do you want to add?`);
+        if(number){
+            alert(`Added ${number} item(s) to cart.`)
+            clearChecks();
+            addNumber(number);
+        }
+        else {
+            alert('No item(s) were added to cart.')
+        }
+    }
+    return false;    
+}
 
-  return false;
+async function resetCart(event) {
+    event.preventDefault();
+    if(confirm("Reset the cart?")) {
+        document.getElementById("numItems").innerHTML="(0)";
+        alert("Cart has been reset.");
+    }
+    else {
+        alert("Nothing was changed.");
+    }
+    return false;
 }
 
 /** index.js **/
@@ -181,6 +228,7 @@ window.addEventListener('load', async function() {
     document.getElementById('filterButton').addEventListener('click', filterTable);
     document.getElementById('searchButton').addEventListener('click', searchTable);
     document.getElementById('addToCartButton').addEventListener('click', addToCart);
+    document.getElementById('resetCartButton').addEventListener('click', resetCart);
     generateFilters();
     generateTable();
 })

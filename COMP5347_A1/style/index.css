@@ -33,6 +33,7 @@ table {
    width: 100%;
    border-collapse: collapse;
    border-spacing: 0;
+   border-top: 15pt solid #95BEF0;   
    
 }
 
@@ -64,4 +65,17 @@ caption {
 
 tr.highlighted {
    background-color: #A4E8E0;
+}
+
+.cart {
+   display:inline-block;
+   vertical-align:middle;
+}
+
+.star {
+   display: flex;
+}
+
+.ratingHeader {
+   text-align: center;
 }
